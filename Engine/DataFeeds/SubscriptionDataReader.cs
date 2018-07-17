@@ -183,9 +183,9 @@ namespace QuantConnect.Lean.Engine.DataFeeds
             var tiingo = _dataFactory as TiingoDailyData;
             if (tiingo != null)
             {
-                if (!TiingoDailyData.IsAuthTokenSet)
+                if (!TiingoDailyData.IsAuthCodeSet)
                 {
-                    TiingoDailyData.SetAuthToken(Config.Get("tiingo-auth-token"));
+                    TiingoDailyData.SetAuthCode(Config.Get("tiingo-auth-token"));
                 }
             }
 

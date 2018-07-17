@@ -466,10 +466,10 @@ namespace QuantConnect.Lean.Engine.DataFeeds
                         Quandl.SetAuthCode(Config.Get("quandl-auth-token"));
                     }
 
-                    if (!TiingoDailyData.IsAuthTokenSet)
+                    if (!TiingoDailyData.IsAuthCodeSet)
                     {
                         // we're not using the SubscriptionDataReader, so be sure to set the auth token here
-                        TiingoDailyData.SetAuthToken(Config.Get("tiingo-auth-token"));
+                        TiingoDailyData.SetAuthCode(Config.Get("tiingo-auth-token"));
                     }
 
                     var factory = new LiveCustomDataSubscriptionEnumeratorFactory(_timeProvider);

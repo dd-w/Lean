@@ -27,24 +27,24 @@ namespace QuantConnect.Data.Custom.Tiingo
     /// </summary>
     public class TiingoDailyData : BaseData
     {
-        private static string _authToken = string.Empty;
+        private static string _authCode = string.Empty;
         private readonly ConcurrentDictionary<string, DateTime> _startDates = new ConcurrentDictionary<string, DateTime>();
 
         /// <summary>
         /// Returns true if the Tiingo API token has been set.
         /// </summary>
-        public static bool IsAuthTokenSet { get; private set; }
+        public static bool IsAuthCodeSet { get; private set; }
 
         /// <summary>
         /// Sets the Tiingo API token.
         /// </summary>
-        /// <param name="authToken">The Tiingo API token</param>
-        public static void SetAuthToken(string authToken)
+        /// <param name="authCode">The Tiingo API token</param>
+        public static void SetAuthCode(string authCode)
         {
-            if (string.IsNullOrWhiteSpace(authToken)) return;
+            if (string.IsNullOrWhiteSpace(authCode)) return;
 
-            _authToken = authToken;
-            IsAuthTokenSet = true;
+            _authCode = authCode;
+            IsAuthCodeSet = true;
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace QuantConnect.Data.Custom.Tiingo
                 _startDates.TryAdd(config.Symbol.Value, startDate);
             }
 
-            var source = $"https://api.tiingo.com/tiingo/daily/{config.Symbol.Value}/prices?startDate={startDate:yyyy-MM-dd}&token={_authToken}";
+            var source = $"https://api.tiingo.com/tiingo/daily/{config.Symbol.Value}/prices?startDate={startDate:yyyy-MM-dd}&token={_authCode}";
             return new SubscriptionDataSource(source, SubscriptionTransportMedium.RemoteFile, FileFormat.Collection);
         }
 
