@@ -17,6 +17,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using QuantConnect.Data.Market;
 using QuantConnect.Data.UniverseSelection;
 
 namespace QuantConnect.Data.Custom.Tiingo
@@ -25,7 +26,7 @@ namespace QuantConnect.Data.Custom.Tiingo
     /// Tiingo daily price data
     /// https://api.tiingo.com/docs/tiingo/daily
     /// </summary>
-    public class TiingoDailyData : BaseData
+    public class TiingoDailyData : TradeBar
     {
         private static string _authCode = string.Empty;
         private readonly ConcurrentDictionary<string, DateTime> _startDates = new ConcurrentDictionary<string, DateTime>();
@@ -60,7 +61,7 @@ namespace QuantConnect.Data.Custom.Tiingo
         /// <summary>
         /// Gets a time span of one day
         /// </summary>
-        public TimeSpan Period => QuantConnect.Time.OneDay;
+        public new TimeSpan Period => QuantConnect.Time.OneDay;
 
         /// <summary>
         /// The date this data pertains to
@@ -72,31 +73,31 @@ namespace QuantConnect.Data.Custom.Tiingo
         /// The actual (not adjusted) open price of the asset on the specific date
         /// </summary>
         [JsonProperty("open")]
-        public decimal Open { get; set; }
+        public new decimal Open { get; set; }
 
         /// <summary>
         /// The actual (not adjusted) high price of the asset on the specific date
         /// </summary>
         [JsonProperty("high")]
-        public decimal High { get; set; }
+        public new decimal High { get; set; }
 
         /// <summary>
         /// The actual (not adjusted) low price of the asset on the specific date
         /// </summary>
         [JsonProperty("low")]
-        public decimal Low { get; set; }
+        public new decimal Low { get; set; }
 
         /// <summary>
         /// The actual (not adjusted) closing price of the asset on the specific date
         /// </summary>
         [JsonProperty("close")]
-        public decimal Close { get; set; }
+        public new decimal Close { get; set; }
 
         /// <summary>
         /// The actual (not adjusted) number of shares traded during the day
         /// </summary>
         [JsonProperty("volume")]
-        public long Volume { get; set; }
+        public new long Volume { get; set; }
 
         /// <summary>
         /// The adjusted opening price of the asset on the specific date. Returns null if not available.
