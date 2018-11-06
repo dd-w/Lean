@@ -31,6 +31,7 @@ namespace QuantConnect.Algorithm.Framework.Risk
         private decimal _portfolioHigh;
         private bool _initialised = false;
         private bool _isTrailing;
+        public event EventHandler MaxDrawdownTriggered;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MaximumDrawdownPercentPortfolio"/> class
@@ -70,7 +71,9 @@ namespace QuantConnect.Algorithm.Framework.Risk
             var pnl = GetTotalDrawdownPercent(currentValue);
             if (pnl < _maximumDrawdownPercent)
             {
-                foreach(var target in targets)
+                MaxDrawdownTriggered?.Invoke(this, EventArgs.Empty);
+
+                foreach (var target in targets)
                     yield return new PortfolioTarget(target.Symbol, 0);
             }
         }
